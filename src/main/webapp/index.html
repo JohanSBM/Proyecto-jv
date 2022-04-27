@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> P&agrave;gina Principal </title>
+	<link rel="icon" type="image/png"  href="newpage/Imagenes/claudio.jpg">
+	<link rel="stylesheet" href="proyecto/css/normalize.css">
+	<link rel="stylesheet" href="proyecto/css/sweetalert2.css">
+	<link rel="stylesheet" href="proyecto/css/material.min.css">
+	<link rel="stylesheet" href="proyecto/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" href="proyecto/css/jquery.mCustomScrollbar.css">
+	<link rel="stylesheet" href="proyecto/css/main.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="proyecto/js/jquery-1.11.2.min.js"><\/script>')</script>
+	<script src="../../proyecto/js/material.min.js" ></script>
+	<script src="proyecto/js/sweetalert2.min.js" ></script>
+	<script src="proyecto/js/jquery.mCustomScrollbar.concat.min.js" ></script>
+	<script src="proyecto/js/main.js" ></script>
+    </head>
+    <style type="text/css">
+
+.seccion_1
+{
+	color: greenyellow;
+	width: 100%;
+	padding: 20px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 30px;
+}
+.seccion_1 h2
+{
+	color: red;
+	font-size: 2rem;
+}
+	
+.carta
+{
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 99%;
+}
+.carta img
+{
+	height: 250px;
+	width: 320px;
+}
+.carta a
+{
+	padding: 30px;
+	color: #000;
+	background: #F5EB2C;
+	text-decoration: none;
+	transition: .3s;
+	position: relative;
+	top: 20px;
+}
+.carta a:hover
+{
+	border-radius: 20px;
+}
+.carta li
+{
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+
+li
+{
+	list-style: none;
+}
+
+.xd a
+{
+	color: #000;
+	border-radius: 5px;
+	text-decoration: none;
+	display: block;
+	padding: 2px;
+	width: 100%;
+	text-align: center;
+	font-size: 1.8rem;
+	transition: .5s;
+}
+
+.xd a:hover
+{
+	border: 1px solid;
+	background: lightseagreen;
+	color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+footer{
+    width: 100%;
+    background: #202020;
+    color: white;   
+    
+}
+
+.container-footer-all{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px;
+}
+
+.container-body{
+    display: flex;
+    justify-content: space-between;
+}
+
+.colum1{
+    max-width: 400px;
+}
+
+.colum1 h1{
+    font-size: 22px;
+}
+
+.colum1 p{
+    font-size: 14px;
+    color: #C7C7C7;
+    margin-top: 20px;
+}
+
+.colum2{
+    max-width: 400px;
+    
+}
+
+.colum2 h1{
+    font-size: 22px;
+}
+
+.row{
+    margin-top: 20px;
+    display: flex;
+}
+
+.row img{
+    width: 36px;
+    height: 36px;
+}
+
+.row label{
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #C7C7C7;
+}
+
+.colum3{
+    max-width: 400px;
+}
+
+.colum3 h1{
+    font-size: 22px;
+}
+
+.container-footer{
+    width: 100%;  
+    background: #101010;
+}
+
+.footer{
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;  
+    padding: 20px;
+}
+
+.copyright{
+    color: #C7C7C7;
+}
+
+.copyright a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.information a{
+    text-decoration: none;
+    color: #C7C7C7;
+}
+
+
+@media screen and (max-width: 1100px){
+    
+    .container-body{
+        flex-wrap: wrap;
+    }
+    
+    .colum1{
+        max-width: 100%;
+    }
+    
+    .colum2,
+    .colum3{
+        margin-top: 40px;
+    }
+}
+
+
+</style>
+    <body>
+        <!-- navLateral -->
+	<section class="full-width navLateral">
+		<div class="full-width navLateral-bg btn-menu"></div>
+		<div class="full-width navLateral-body">
+			
+			<figure class="full-width navLateral-body-tittle-menu">
+				<div>
+					<img src="newpage/Imagenes/Logo.jpg" alt="Avatar" class="img-responsive" style="border-radius: 150px;">
+				</div>
+				<figcaption>
+					<span>
+						Bienvenido
+					</span>
+				</figcaption>
+			</figure>
+			<br><br><br><br><br><br>
+			<nav class="full-width">
+				<ul class="full-width list-unstyle menu-principal">
+					<li class="full-width">
+						<a href="index.html" class="full-width">
+							<div class="navLateral-body-cl">
+								<i class="zmdi zmdi-view-dashboard"></i>
+							</div>
+							<div class="navLateral-body-cr">
+								INICIO
+							</div>
+						</a>
+					</li>
+
+					<li class="full-width divider-menu-h"></li>
+					<li class="full-width">
+						<a href="Login.xhtml" style="color: orangered;" class="full-width">
+							<div class="navLateral-body-cl">
+								<i class="zmdi zmdi-washing-machine"></i>
+							</div>
+							<div class="navLateral-body-cr">
+                                                            Inicio Sesi&ograve;n
+							</div>
+						</a>
+					</li>
+
+						</ul>
+					</li>
+				</ul>
+                        </nav>
+		</div>
+	</section>
+	<!-- pageContent -->
+	<section class="full-width pageContent">
+		
+		<section class="full-width header-well">
+			<div class="full-width header-well-icon">
+				<i class="zmdi zmdi-view-dashboard"></i>
+			</div>
+			<div class="full-width header-well-text">
+				<h1> Gran Sabor Paisa </h1>
+			</div>
+		</section>
+
+			<div class="mdl-tabs__panel is-active" id="tabNewAdmin">
+				<div class="mdl-grid">
+					<div class="mdl-cell mdl-cell--12-col">
+						<div class="full-width panel mdl-shadow--2dp">
+							<div class="full-width panel-tittle bg-primary text-center tittles">
+								Productos
+							</div>
+							<div class="full-width panel-content">
+								<form>
+									<div class="mdl-grid">
+										
+
+
+									    	<section class="seccion_1" >
+		<div class="carta">
+			<img src="newpage/Imagenes/carro.jpg" style="border-radius: 200px; width: 350px; height: 280px;">
+			<h2 style = "font-family: sans-serif;">Cosas que ofrecemos:
+				<li class="xd"> <a href="newpage/Formularios/Pollos.html"> Pollo </a></li>
+				<li class="xd"> <a href="newpage/Formularios/Arroz.html"> Arroz </a></li>
+				<li class="xd"> <a href="newpage/Formularios/Gaseosas.html"> Gaseosas </a></li>
+				<li class="xd"> <a href="newpage/Formularios/Bandejas.html"> Bandejas </a></li>
+				<li class="xd"> <a href="newpage/Formularios/Combos.html"> COMBOS </a></li>
+				 <br> 
+			<!-- <a href="javascript:void(0)">Conoce más aquí</a> -->
+			</h2>
+		</div>
+	</section>
+
+				
+<hr>	
+
+<footer>
+       <hr>	
+       
+        
+        <div class="container-footer">
+               <div class="footer">
+                    <div class="copyright">
+                         | <a href="">Gran Sabor Paisa</a>
+                    </div>
+
+                    <div class="information">
+                        <a href="newpage/Formularios/somos.html">Informacion Compa&ntilde;ia</a> | <a href="">Terminos y Condiciones</a>
+                    </div>
+                </div>
+
+            </div>
+        
+    </footer>
+    </body>
+</html>

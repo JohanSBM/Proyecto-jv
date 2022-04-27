@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+ 
+    <h:head>
+        <title>Inventario</title>
+    </h:head>
+    <h:body>
+         <div class="card">
+    <h:form>
+        <p:growl id="messages"/>
+
+        <p:menubar>
+            <p:submenu label="Empleados" icon="pi pi-fw pi-users">                
+                    <p:menuitem value="Lista de Empleados" action="Empleados" icon="pi pi-fw pi-calendar-plus"/>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>              
+                <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                    <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                </p:submenu>
+            </p:submenu>
+            <p:submenu label="Usuarios" icon="pi pi-fw pi-user-plus">            
+               
+                    <p:menuitem value="Lista de usuarios" action="Usuario" icon="pi pi-fw pi-calendar-plus"/>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>              
+                <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                    <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                </p:submenu>
+            </p:submenu>
+            <p:submenu label="Cargos" icon="pi pi-fw pi-briefcase">                
+                    <p:menuitem value="Lista de Cargos" action="Tipo_de_cargo" icon="pi pi-fw pi-calendar-plus"/>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>              
+                <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                    <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                </p:submenu>
+            </p:submenu>
+            <p:submenu label="Inventario" icon="pi pi-fw pi-tags">
+                
+                <p:menuitem value="Lista de Inventario" action="Inventario" icon="pi pi-fw pi-bookmark"/>
+                    <p:menuitem value="Video" icon="pi pi-fw pi-video"/>           
+                <p:menuitem value="Delete" icon="pi pi-fw pi-trash"/>
+                <p:divider />
+                <p:menuitem value="Export" icon="pi pi-fw pi-external-link"/>
+            </p:submenu>
+
+            <p:submenu label="Proveedor" icon="pi pi-fw pi-id-card">
+                <p:menuitem value="Lista de provedores" action="Proveedor" icon="pi pi-fw pi-align-left"/>
+                <p:menuitem value="Right" icon="pi pi-fw pi-align-right"/>
+                <p:menuitem value="Center" icon="pi pi-fw pi-align-center"/>
+                <p:menuitem value="Justify" icon="pi pi-fw pi-align-justify"/>
+            </p:submenu>
+
+
+            
+
+            <p:divider layout="vertical"/>
+
+            <p:menuitem value="Cerrar Sesion" action="Login" icon="pi pi-fw pi-power-off"/>
+
+            <f:facet name="options">
+                <div class="ui-input-icon-left p-mr-2">
+                    <i class="pi pi-fw pi-search" />
+                    <p:inputText placeholder="Search"/>
+                </div>
+                <p:button value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+</div>
+        <p:growl id="msj"/>
+        <h:form id="Nuevo">
+            
+            <p:fieldset legend="Nuevo" toggleSpeed="">
+                <p:panelGrid columns="1">
+                    <p:commandButton value="Nuevo registro" oncomplete="PF('valor').show()"/>
+                </p:panelGrid >
+            </p:fieldset>
+        </h:form>
+        <p:dialog widgetVar="valor" modal="true" showEffect="clip" header="Nuevo Producto" resizable="false">
+            <p:ajax event="close" listener="#{managedInventario.limpiar()}" update=":p"/>
+            <h:form id="p">
+               
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Codigo" for="txtCodigoInv"/>
+                    <p:inputText value="#{managedInventario.inventario.codInv}" id="txtCodigoInv"/>
+                    <p:outputLabel value="Ingrese una fecha de recibido" />
+                    <p:calendar value="#{managedInventario.inventario.fechaRecibido}"/>
+                    <p:outputLabel value="Nombre del producto" for="txtNomProducto"/>
+                    <p:inputText value="#{managedInventario.inventario.nomProducto}" id="txtNomProducto"/>
+                    <p:outputLabel value="Selecione un tipo de producto"/>
+                    <p:selectOneMenu value="#{managedInventario.categ.id_Categoria}">
+                        <f:selectItems value="#{managedCateg_Producto.listaCateg_Producto}" var="c" itemValue="#{c.id_Categoria}" itemLabel="#{c.tipo_Pro}"/>
+                    </p:selectOneMenu>  
+                     <p:outputLabel value="Ingrese una fecha de vencimiento" />
+                     <p:calendar value="#{managedInventario.inventario.fechaVecimiento}"/>
+                    <p:outputLabel value="Stock" for="txtst"/>
+                    <p:inputText value="#{managedInventario.inventario.stock}" id="txtst"/>                   
+                    <p:outputLabel value="Selecione un empleado"/>
+                    <p:selectOneMenu value="#{managedInventario.empleados.idEmpleado}">
+                        <f:selectItems value="#{managedEmpleados.listaEmpelados}" var="e" itemValue="#{e.idEmpleado}" itemLabel="#{e.nomEmp}"/>
+                    </p:selectOneMenu>                   
+
+                    <p:commandButton value="Guardar" actionListener="#{managedInventario.guardar()}" oncomplete="PF('valor').hide()" update=":Datos p :msj" rendered="#{managedInventario.inventario.codInv ==0}"/>
+                    <p:commandButton value="Editar" actionListener="#{managedInventario.editar()}" oncomplete="PF('valor').hide()" update=":Datos p :msj" rendered="#{managedInventario.inventario.codInv !=0}"/>
+                </p:panelGrid>
+
+            </h:form>
+        </p:dialog>
+        <h:form id="Datos">
+            <p:fieldset legend="Datos" toggleable="true">
+                <p:dataTable  value="#{managedInventario.listaInventario}" id="inventario" var="in">
+                    <p:column headerText="Codigo">
+                        <h:outputText value="#{in.codInv}"/>
+                    </p:column>
+                    <p:column headerText="Fecha de Recibido" exportable="true">
+                        <h:outputText value="#{in.fechaRecibido}"/>
+                    </p:column>
+                    <p:column headerText="Nombre del Producto" exportable="true">
+                        <h:outputText value="#{in.nomProducto}"/>
+                    </p:column>
+                    <p:column headerText="Categoria" exportable="true">
+                        <h:outputText value="#{in.categoria.tipo_Pro}"/>
+                    </p:column>
+                    <p:column headerText="Fecha de Vecimiento" exportable="true">
+                        <h:outputText value="#{in.fechaVecimiento}"/>
+                    </p:column>
+                    <p:column headerText="Stock" exportable="true">
+                        <h:outputText value="#{in.stock}"/>
+                    </p:column>                    
+                    <p:column headerText="Empleado" exportable="true">
+                        <h:outputText value="#{in.empleado.nomEmp}"/>
+                    </p:column>
+                    <p:column headerText="Acciones" exportable="false">
+                        <p:commandButton value="Editar" actionListener="#{managedInventario.cargarDatos(in)}" update=":p" oncomplete="PF('valor').show()"/>
+                        <p:commandButton value="Eliminar" actionListener="#{managedInventario.eliminar(in)}" update=":Datos :msj"/>                       
+
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+             <h:commandLink>
+                    <h:graphicImage url="resources/img/pdf.png" width="24" />
+                    <p:dataExporter type="pdf" target="empleados" fileName="Empleadospdf" />
+                </h:commandLink>
+                <h:commandLink>
+                    <h:graphicImage url="resources/img/logoMicrosoftExcel.png" width="24" />
+                    <p:dataExporter type="xlsx" target="empleados" fileName="Empleadosexcel" />
+                </h:commandLink>
+        </h:form>
+    </h:body>
+</html>

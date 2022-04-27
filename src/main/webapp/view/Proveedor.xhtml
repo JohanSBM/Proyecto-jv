@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+         <div class="card">
+    <h:form>
+        <p:growl id="messages"/>
+
+        <p:menubar>
+            <p:submenu label="Empleados" icon="pi pi-fw pi-users">                
+                    <p:menuitem value="Lista de Empleados" action="Empleados" icon="pi pi-fw pi-calendar-plus"/>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>              
+                <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                    <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                </p:submenu>
+            </p:submenu>
+            <p:submenu label="Usuarios" icon="pi pi-fw pi-user-plus">            
+               
+                    <p:menuitem value="Lista de usuarios" action="Usuario" icon="pi pi-fw pi-calendar-plus"/>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>              
+                <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                    <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                </p:submenu>
+            </p:submenu>
+            <p:submenu label="Cargos" icon="pi pi-fw pi-briefcase">                
+                    <p:menuitem value="Lista de Cargos" action="Tipo_de_cargo" icon="pi pi-fw pi-calendar-plus"/>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>              
+                <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                    <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                </p:submenu>
+            </p:submenu>
+            <p:submenu label="Inventario" icon="pi pi-fw pi-tags">
+                
+                <p:menuitem value="Lista de Inventario" action="Inventario" icon="pi pi-fw pi-bookmark"/>
+                    <p:menuitem value="Video" icon="pi pi-fw pi-video"/>           
+                <p:menuitem value="Delete" icon="pi pi-fw pi-trash"/>
+                <p:divider />
+                <p:menuitem value="Export" icon="pi pi-fw pi-external-link"/>
+            </p:submenu>
+
+            <p:submenu label="Proveedor" icon="pi pi-fw pi-id-card">
+                <p:menuitem value="Lista de provedores" action="Proveedor" icon="pi pi-fw pi-align-left"/>
+                <p:menuitem value="Right" icon="pi pi-fw pi-align-right"/>
+                <p:menuitem value="Center" icon="pi pi-fw pi-align-center"/>
+                <p:menuitem value="Justify" icon="pi pi-fw pi-align-justify"/>
+            </p:submenu>
+
+
+            
+
+            <p:divider layout="vertical"/>
+
+            <p:menuitem value="Cerrar Sesion" action="Login" icon="pi pi-fw pi-power-off"/>
+
+            <f:facet name="options">
+                <div class="ui-input-icon-left p-mr-2">
+                    <i class="pi pi-fw pi-search" />
+                    <p:inputText placeholder="Search"/>
+                </div>
+                <p:button value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+</div>
+        <p:growl id="msj"/>
+        <h:form id="Nuevo">
+            <p:fieldset legend="Nuevo" toggleSpeed="">
+                <p:panelGrid columns="1">
+                    <p:commandButton value="Nuevo registro" oncomplete="PF('valor').show()"/>
+                </p:panelGrid >
+            </p:fieldset>
+        </h:form>
+        <p:dialog widgetVar="valor" modal="true" showEffect="clip" header="Nuevo Proveedor" resizable="false">
+            <p:ajax event="close" listener="#{managedProveedor.limpiar()}" update=":p"/>
+            <h:form id="p">
+                <p:panelGrid columns="2">
+                                       
+                     <p:outputLabel value="IdProveedor" for="txtid"/>
+                     <p:inputText value="#{managedProveedor.proveedor.idProv}" id="txtid"/>
+                     <p:outputLabel value="NIT" for="txtN"/>
+                     <p:inputText value="#{managedProveedor.proveedor.NITEmpresa}" id="txtN"/>
+                     <p:outputLabel value="Nombre" for="txtNom"/>
+                     <p:inputText value="#{managedProveedor.proveedor.nomProv}" id="txtNom"/>
+                     <p:outputLabel value="Telefono" for="txtTel"/>
+                     <p:inputText value="#{managedProveedor.proveedor.telProv}" id="txtTel"/>
+                     <p:outputLabel value="Correo" for="txtCor"/>
+                     <p:inputText value="#{managedProveedor.proveedor.correoProv}" id="txtCor"/>
+                    
+                     
+                      
+                    
+                     <p:commandButton value="Guardar" actionListener="#{managedProveedor.guardar()}" oncomplete="PF('valor').hide()" update=":Datos p :msj" rendered="#{managedProveedor.proveedor.idProv ==0}"/>
+                     <p:commandButton  value="Editar" actionListener="#{managedProveedor.editar()}" oncomplete="PF('valor').hide()" update=":Datos p :msj" rendered="#{managedProveedor.proveedor.idProv !=0}"/>
+                </p:panelGrid>
+                
+            </h:form>
+        </p:dialog>
+        <h:form id="Datos">
+            <p:fieldset legend="Datos" toggleable="true">
+                <p:dataTable value="#{managedProveedor.listaProveedor}" var="pr">
+                    <p:column headerText="Id Proveedor">
+                        <h:outputText value="#{pr.idProv}"/>
+                    </p:column>
+                    <p:column headerText="Nit Empresa">
+                        <h:outputText value="#{pr.NITEmpresa}"/>
+                    </p:column>
+                     <p:column headerText="Nombre">
+                         <h:outputText value="#{pr.nomProv}"/>
+                    </p:column>
+                     <p:column headerText="Telefono">
+                         <h:outputText value="#{pr.telProv}"/>
+                    </p:column>
+                     <p:column headerText="Correo">
+                         <h:outputText value="#{pr.correoProv}"/>
+                    </p:column>
+                   
+                  
+                    <p:column headerText="Acciones">
+                        <p:commandButton value="Editar" actionListener="#{managedProveedor.cargarDatos(pr)}" update=":p" oncomplete="PF('valor').show()"/>
+                        <p:commandButton value="Eliminar" actionListener="#{managedProveedor.eliminar(pr)}" update=":Datos :msj"/>                       
+                        
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+            
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Inicio de sesion</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="newpage/Estilos/Style_Login.css" rel="stylesheet" type="text/css"/>
+       
+           <link rel="icon" type="image/png"  href="newpage/Imagenes/claudio.jpg"/>
+        
+    </h:head>
+     <h:body >            
+       
+          <p:growl id="msj"/>
+        <h:form>
+             <div class="login-box">
+                <img src="newpage/Imagenes/Logo.jpg" class="avatar" alt="Imagen"/>
+                <h1> Login </h1>
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="txtUser" value="Usuario"/>
+                    <p:inputText id="txtUser" value="#{managedUsuario.usuario.usuario}" required="true" />
+                    <p:outputLabel for="Pass" value="Contraseña"/>
+                    <p:password id="Pass"  value="#{managedUsuario.usuario.pass}" required="true" />
+                    <p:commandButton value="Ingresar" icon="ui-icon-key" action="#{managedUsuario.validar()}" update=":msj"/>
+                    
+                </h:panelGrid> 
+                 <br/>
+        <center><a href="index.html" style="font-size: 15px"> Volver a la página principal </a></center>
+            
+                 </div>
+        </h:form>  
+       
+    </h:body>
+</html>

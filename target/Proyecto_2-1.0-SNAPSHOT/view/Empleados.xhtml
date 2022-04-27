@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Empleados</title>
+    </h:head>
+    <h:body>
+        <div class="card">
+    <h:form>
+        <p:growl id="messages"/>
+
+        <p:menubar>
+              <p:menuitem icon="pi pi-fw pi-home" action="../../principal.xhtml" />
+              
+            <p:submenu label="Empleados" icon="pi pi-fw pi-users">                
+                    <p:menuitem value="Lista de Empleados" action="Empleados" icon="pi pi-fw pi-calendar-plus"/>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>              
+                <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                    <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                </p:submenu>
+            </p:submenu>
+            <p:submenu label="Usuarios" icon="pi pi-fw pi-user-plus">            
+               
+                    <p:menuitem value="Lista de usuarios" action="Usuario" icon="pi pi-fw pi-calendar-plus"/>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>              
+                <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                    <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                </p:submenu>
+            </p:submenu>
+            <p:submenu label="Cargos" icon="pi pi-fw pi-briefcase">                
+                    <p:menuitem value="Lista de Cargos" action="Tipo_de_cargo" icon="pi pi-fw pi-calendar-plus"/>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-calendar-minus"/>              
+                <p:submenu label="Archieve" icon="pi pi-fw pi-calendar-times">
+                    <p:menuitem value="Remove" icon="pi pi-fw pi-calendar-minus"/>
+                </p:submenu>
+            </p:submenu>
+            <p:submenu label="Inventario" icon="pi pi-fw pi-tags">
+                
+                <p:menuitem value="Lista de Inventario" action="Inventario" icon="pi pi-fw pi-bookmark"/>
+                    <p:menuitem value="Video" icon="pi pi-fw pi-video"/>           
+                <p:menuitem value="Delete" icon="pi pi-fw pi-trash"/>
+                <p:divider />
+                <p:menuitem value="Export" icon="pi pi-fw pi-external-link"/>
+            </p:submenu>
+
+            <p:submenu label="Proveedor" icon="pi pi-fw pi-id-card">
+                <p:menuitem value="Lista de provedores" action="Proveedor" icon="pi pi-fw pi-align-left"/>
+                <p:menuitem value="Right" icon="pi pi-fw pi-align-right"/>
+                <p:menuitem value="Center" icon="pi pi-fw pi-align-center"/>
+                <p:menuitem value="Justify" icon="pi pi-fw pi-align-justify"/>
+            </p:submenu>
+
+
+            
+
+            <p:divider layout="vertical"/>
+
+            <p:menuitem value="Cerrar Sesion" action="../Login.xhtml" icon="pi pi-fw pi-power-off"/>
+          
+
+            <f:facet name="options">
+                <div class="ui-input-icon-left p-mr-2">
+                    <i class="pi pi-fw pi-search" />
+                    <p:inputText placeholder="Search"/>
+                </div>
+                <p:button value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+</div>
+
+        <p:growl id="msj"/>
+        <h:form id="Nuevo">
+            
+            <p:fieldset legend="Nuevo" toggleSpeed="">
+                <p:panelGrid columns="1">
+                    <p:commandButton  icon="pi pi-fw pi-user-plus" value="Nuevo registro" oncomplete="PF('valor').show()"/>
+                </p:panelGrid >
+            </p:fieldset>
+        </h:form>
+        <p:dialog widgetVar="valor" modal="true" showEffect="clip" header="Nuevo Empleado" resizable="false">
+            <p:ajax event="close" listener="#{managedEmpleados.limpiar()}" update=":p"/>
+            <h:form id="p">
+               
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="IdEmpleado" for="txtIdEmpleado"/>
+                    <p:inputText value="#{managedEmpleados.empleados.idEmpleado}" id="txtIdEmpleado"/>
+                    <p:outputLabel value="Nombres" for="txtNomEmp"/>
+                    <p:inputText value="#{managedEmpleados.empleados.nomEmp}" id="txtNomEmp"/>
+                    <p:outputLabel value="Apellidos" for="txtApeEmp"/>
+                    <p:inputText value="#{managedEmpleados.empleados.apeEmp}" id="txtApeEmp"/>
+                    <p:outputLabel value="Selecione un cargo"/>
+                    <p:selectOneMenu value="#{managedEmpleados.tipo.id_tipo}">
+                        <f:selectItems value="#{managedTipo.listaTipo}" var="t" itemValue="#{t.id_tipo}" itemLabel="#{t.cargo}"/>
+                    </p:selectOneMenu>  
+                    <p:outputLabel value="Direccion" for="txtdir"/>
+                    <p:inputText value="#{managedEmpleados.empleados.direccion}" id="txtdir"/>
+                    <p:outputLabel value="Correo" for="txtcor"/>
+                    <p:inputText value="#{managedEmpleados.empleados.correo}" id="txtcor"/>
+                    <p:outputLabel value="Celular" for="txtcel"/>
+                    <p:inputText value="#{managedEmpleados.empleados.celular}" id="txtcel"/>
+                    <p:outputLabel value="Selecione un usuario"/>
+                    <p:selectOneMenu value="#{managedEmpleados.usuario.idUsuario}">
+                        <f:selectItems value="#{managedUsuario.listaUsuario}" var="us" itemValue="#{us.idUsuario}" itemLabel="#{us.usuario}"/>
+                    </p:selectOneMenu>                   
+
+                    <p:commandButton icon="pi pi-fw pi-save" actionListener="#{managedEmpleados.guardar()}" oncomplete="PF('valor').hide()" update=":Datos p :msj" rendered="#{managedEmpleados.empleados.idEmpleado ==0}"/>
+                    <p:commandButton  icon="pi pi-fw pi-user-edit" actionListener="#{managedEmpleados.editar()}" oncomplete="PF('valor').hide()" update=":Datos p :msj" rendered="#{managedEmpleados.empleados.idEmpleado !=0}"/>
+                </p:panelGrid>
+
+            </h:form>
+        </p:dialog>
+        <h:form id="Datos">
+            <p:fieldset legend="Datos" toggleable="true">
+                <p:dataTable  value="#{managedEmpleados.listaEmpelados}" id="empleados" var="em">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{em.idEmpleado}"/>
+                    </p:column>
+                    <p:column headerText="Nombre" exportable="true">
+                        <h:outputText value="#{em.nomEmp}"/>
+                    </p:column>
+                    <p:column headerText="Apellido" exportable="true">
+                        <h:outputText value="#{em.apeEmp}"/>
+                    </p:column>
+                    <p:column headerText="Cargo" exportable="true">
+                        <h:outputText value="#{em.tipo.cargo}"/>
+                    </p:column>
+                    <p:column headerText="Direccion" exportable="true">
+                        <h:outputText value="#{em.direccion}"/>
+                    </p:column>
+                    <p:column headerText="Correo" exportable="true">
+                        <h:outputText value="#{em.correo}"/>
+                    </p:column>
+                    <p:column headerText="Celular" exportable="true">
+                        <h:outputText value="#{em.celular}"/>
+                    </p:column>
+                    <p:column headerText="Usuario" exportable="true">
+                        <h:outputText value="#{em.usuario.usuario}"/>
+                    </p:column>
+                    <p:column headerText="Acciones" exportable="false">
+                        <p:commandButton icon="pi pi-fw pi-user-edit" actionListener="#{managedEmpleados.cargarDatos(em)}" update=":p" oncomplete="PF('valor').show()"/>
+                        <p:commandButton  icon="pi pi-trash" actionListener="#{managedEmpleados.eliminar(em)}" update=":Datos :msj"/>                       
+
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+             <h:commandLink>
+               
+                    <h:graphicImage url="../newpage/Imagenes/pdf.png" width="24" />
+                    <p:dataExporter type="pdf" target="empleados" fileName="Empleadospdf" />
+                </h:commandLink>
+           
+                <h:commandLink>
+                    <h:graphicImage url="../newpage/Imagenes/excel.png"  width="24" />
+                    <p:dataExporter type="xlsx" target="empleados" fileName="Empleadosexcel" />
+                </h:commandLink>
+        </h:form>
+    </h:body>
+</html>
+
